@@ -7,3 +7,29 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Clean Data
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(readr)
+```
+```{r}
+catch_original <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
+head(catch_original)
+```
+## Drop All and notes since we don't need them
+
+```{r}
+catch_data <- catch_original %>% 
+  select(-All, -notesRegCode)
+
+summary(catch_data)
+```
+```{r}
+catch_data <- catch_original %>% 
+  select(Region, Year, Chinook, Sockeye, Coho, Pink, Chum)
+
+head(catch_data)
+```
+
